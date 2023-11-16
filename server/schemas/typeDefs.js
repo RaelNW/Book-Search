@@ -1,2 +1,3 @@
-const typeDefs
+const typeDefs =
 // Path: server/schemas/typeDefs.js
+
