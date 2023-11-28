@@ -22,6 +22,20 @@ const resolvers = {
         return User.find().select('-__v -password');
     },
 
+    //Resolver to fetch a single user by username
+    user: async(parent, {username}) => {
+        //retrieve and return a single user data excluding sensitive info
+        return await User.findOne({username}).select('-__v -password');
+    },
+
+    //Resolver to fetch all books
+    books: async(parent, {username}) => {
+        //retrieve and return all books data
+        const user = await User.findOne({username});
+        return user.savedBooks;
+    },
+
+
 Mutation: {
     addUser: async(parent, args) => {
         const user = await User.create(args);
