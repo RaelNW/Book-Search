@@ -1,8 +1,8 @@
-import { model } from "mongoose";
+
 
 const typeDefs =
-// Path: server/schemas/typeDefs.js
-`type User {
+  // Path: server/schemas/typeDefs.js
+  `type User {
     _id: ID
     username: String
     email: String
@@ -10,15 +10,24 @@ const typeDefs =
     savedBooks: [Book]
 }
 type Book {
-    bookId: ID
+    _Id: ID
     authors: [String]
     description: String
+    bookId: string
     title: String
     image: String
     link: String
 }
 type Query {
     me: User
+    users: [User]
+    user(username: String!): User
+    books(username: String): [Book]
+    book(bookId: ID!): Book
+}
+type Auth {
+    token: ID!
+    user: User
 }
 input BookInput {
     bookId: ID
@@ -36,10 +45,6 @@ type Mutation {
     removeBook(bookId: ID!): User
 }
 
-type Auth {
-    token: ID!
-    user: User
-}
 `;
 
 module.exports = typeDefs;
