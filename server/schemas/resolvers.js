@@ -1,18 +1,25 @@
 const {User, Book} = require('../models');
-const {signToken, AuthenticationError} = require('../utils/auth');
+const {AuthenticationError} = require('apollo-server-express');
+const {signToken} = require('../utils/auth');
 
 const resolvers = {
     Query: {
+        //Resolver to fetch the current user's data
         me: async(parent, args, context) => {
-            if (context.user){
-                const userData = await User.findOne({_id: context.user._id})
-                .select('-__v -password')
-                .populate('savedBooks')
-                return userData;
+            
+            const foundUser = context.user;
+            //check if user is authenticated
+            if (!foundUser){
+                throw new AuthenticationError('You need to be logged in!');
             }
-            throw new AuthenticationError('Not logged in');
-        },
-
+            //fetch and return user data excluding sensitive info
+            const userData = await User.findOne({_id: foundUser._id}).select('-__v -password');
+            return userData;
+    },
+    //Resolver to fetch all users
+    users: async() => {
+        //retrieve and return all users data excluding sensitive info
+        return User.find().select('-__v -password');
     },
 
 Mutation: {
