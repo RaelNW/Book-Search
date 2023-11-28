@@ -13,7 +13,7 @@ type Book {
     _Id: ID
     authors: [String]
     description: String
-    bookId: string
+    bookId: String
     title: String
     image: String
     link: String
