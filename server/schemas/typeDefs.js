@@ -1,3 +1,5 @@
+import { model } from "mongoose";
+
 const typeDefs =
 // Path: server/schemas/typeDefs.js
 `type User {
@@ -39,3 +41,5 @@ type Auth {
     user: User
 }
 `;
+
+module.exports = typeDefs;
