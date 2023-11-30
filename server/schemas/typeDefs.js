@@ -10,27 +10,23 @@ const typeDefs =
     savedBooks: [Book]
 }
 type Book {
-    _Id: ID
     authors: [String]
     description: String
-    bookId: String
+    bookId: ID!
     title: String
     image: String
     link: String
 }
 type Query {
     me: User
-    users: [User]
-    user(username: String!): User
-    books(username: String): [Book]
-    book(bookId: ID!): Book
+
 }
 type Auth {
     token: ID!
     user: User
 }
 input BookInput {
-    bookId: ID
+    bookId: String
     authors: [String]
     description: String
     title: String
